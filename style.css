@@ -1,0 +1,33 @@
+body {
+    background-color: black;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid #ccc;;
+  }
+  .event {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #007BFF;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .event.active {
+    background-color: #FF5722;
+  }
+  .event::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 2px;
+    height: calc(100% - 50%);
+    background-color: #ccc;
+    z-index: -1;
+  }
