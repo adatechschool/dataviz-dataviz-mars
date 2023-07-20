@@ -1,10 +1,10 @@
 let days = []
 const axios = require("axios");
-
-
 let allPromises = []
 
-for(let i=0;i<150;i++){
+
+
+for(let i=0;i<10;i++){
  
 allPromises[i] = new Promise((resolve) => {
 
@@ -12,16 +12,18 @@ allPromises[i] = new Promise((resolve) => {
   .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${i}&api_key=N8YGybjUTaarxp1VS3B72PuwfAojnLybkoJB9WLv`)
   .then((response) => {
     resolve()
+    let jasonDay = new Object
     if(response.data.photos.length>0){
-      let jasonDay = new Object
       jasonDay.sol = i
       jasonDay.earthDate = response.data.photos[0].earth_date
       jasonDay.taille = response.data.photos.length
       days[i]=jasonDay 
-      console.log(jasonDay)
+      // console.log(jasonDay)
     }
     else{
-      days[i]="Pas de données ce jour ci"
+      jasonDay.sol = i
+      jasonDay.taille = "Pas de données ce jour ci"
+      days[i]=jasonDay
     }
   })
   .catch(error => {
@@ -37,7 +39,6 @@ allPromises[i] = new Promise((resolve) => {
 const fs = require('fs')
 
 Promise.all(allPromises).then(() => { 
-  console.log(days)
 
 // let content;
 // fs.readFile('daysSol.json', function read(err, data) {
@@ -49,7 +50,7 @@ Promise.all(allPromises).then(() => {
 
   data = JSON.stringify(days)
   
-  fs.writeFile('daysSol.json', data, (err) => {
+  fs.writeFile('traitementdata/daysSol.json', data, (err) => {
       if (err) throw err;
   })
 
