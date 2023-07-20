@@ -1,7 +1,8 @@
 key1 = 'N8YGybjUTaarxp1VS3B72PuwfAojnLybkoJB9WLv'
-key2 = ''
+key2 = 'AcAQgeDMAvaG1BKWrpyVj1IicTRRbZRwjt14Ks1D'
+demo = 'DEMO_KEY'
 
-let months = []
+let months = [[],[],[],[],[],[],[],[],[],[],[],[]]
 let days = []
 let allPromises = []
 const axios = require("axios");
@@ -47,17 +48,13 @@ promiseMonths = new Promise((resolve) => {
 
 // requestMonths(972)
 let month = 0
-let lastAdded = new Date("2012-08-06")
-let day = lastAdded.getDate()
 
-date = new Date ("2012-08-06")
-console.log(date)
-date.setDate(date.getDate()+1)
-console.log(date)
 
-const requestSolDays = (iStart,iterations) => {
 
-for(let i = 0 ; i < iterations ; i++){
+
+const requestSolDays = (iterations) => {
+
+for(let i = 17 ; i < iterations ; i++){
 
  
   allPromises[i] = new Promise((resolve) => {
@@ -66,29 +63,28 @@ for(let i = 0 ; i < iterations ; i++){
     .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${i}&api_key=${key1}`)
     .then((response) => {
       resolve()
+      // console.log("coucou")
       let jasonDay = new Object
       if(response.data.photos.length>0){
         date = new Date(response.data.photos[0].earth_date)
         month = date.getMonth()
         day = date.getDate()
-        lastAdded = date
         jasonDay.sol = i
         jasonDay.earthDate = response.data.photos[0].earth_date
         jasonDay.taille = response.data.photos.length
         months[month][day]=jasonDay
         console.log(jasonDay)
       }
+    
       else{
-        jasonDay.lastAdded = lastAdded
-        jasonDay.lastAddedtoToday = lastAddedtoToday
-        lastAddedtoToday = lastAdded.setDate(lastAdded.getDate()+1)
-        month = lastAddedtoToday.getMonth()
-        day = lastAddedtoToday.getDate()
-        lastAdded = lastAddedtoToday
+        date = new Date ("2012-08-06")
+        let solToDate = date.setDate(date.getDate()+i)
+        date = new Date (solToDate)
+        console.log(date)
+        jasonDay.earthDate = date
         jasonDay.sol = i
-        jasonDay.earthDate = lastAddedtoToday
         jasonDay.taille = "Pas de données ce jour ci"
-        months[month][day]=jasonDay
+        months[date.getMonth()][date.getDate()]=jasonDay
         console.log(jasonDay)
       }
     })
@@ -102,7 +98,8 @@ for(let i = 0 ; i < iterations ; i++){
 
 }
 
-requestSolDays(0,10)
+requestSolDays(40)
+
 
 const fs = require('fs')
 
