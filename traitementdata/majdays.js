@@ -18,7 +18,7 @@ for(let i = 500 ; i < iterations ; i++){
 
     axios
 
-    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${i}&api_key=${key2}`)
+    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${i}&api_key=${key1}`)
     .then((response) => {
       resolve()
       if(response.data.photos.length>0){
