@@ -11,7 +11,7 @@ const axiosRetry = require('axios-retry')
 
 const requestSolDays = (iterations) => {
 
-for(let i = 500 ; i < iterations ; i++){
+for(let i = 855 ; i < iterations ; i++){
 
   axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay });
   allPromises[i] = new Promise((resolve) => {
@@ -61,7 +61,7 @@ for(let i = 500 ; i < iterations ; i++){
 
 }
 
-requestSolDays(854)
+requestSolDays(1209)
 
 
 
@@ -78,7 +78,7 @@ Promise.all(allPromises).then(() => {
   data = JSON.stringify(year)
   console.log(data)
   
-  fs.writeFile('traitementdata/daysSol2014.json', data, (err) => {
+  fs.writeFile('traitementdata/daysSol2015.json', data, (err) => {
       if (err) throw err;
   })
 
