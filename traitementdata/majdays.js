@@ -6,18 +6,19 @@ let year = [[],[],[],[],[],[],[],[],[],[],[],[]]
 let allPromises = []
 const axios = require("axios");
 const fs = require('fs')
+const axiosRetry = require('axios-retry')
 
 
 const requestSolDays = (iterations) => {
 
-for(let i = 0 ; i < iterations ; i++){
+for(let i = 500 ; i < iterations ; i++){
 
- 
+  axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay });
   allPromises[i] = new Promise((resolve) => {
 
     axios
 
-    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${i}&api_key=${key1}`)
+    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${i}&api_key=${key2}`)
     .then((response) => {
       resolve()
       if(response.data.photos.length>0){
@@ -60,7 +61,7 @@ for(let i = 0 ; i < iterations ; i++){
 
 }
 
-requestSolDays(40)
+requestSolDays(854)
 
 
 
@@ -77,11 +78,16 @@ Promise.all(allPromises).then(() => {
   data = JSON.stringify(year)
   console.log(data)
   
-  fs.writeFile('traitementdata/daysSol.json', data, (err) => {
+  fs.writeFile('traitementdata/daysSol2014.json', data, (err) => {
       if (err) throw err;
   })
 
 })
+
+
+// Commencer par une lecture pour ne modifier que ce qui est nécessaire et compléter au fur et à mesure
+// Gérer comme un objet pour ajouter des données comme le total de photos sur la journée
+
 
 // Sur itération de 100 : Qq erreurs parce que requête vide. Géré avec un message d'erreur dans le tableau
 // Sur itération de 400 : Sur AxiosError: Request failed with status code 503. Pas sur les mêmes éléments
