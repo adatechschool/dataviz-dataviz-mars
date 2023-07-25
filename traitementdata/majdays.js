@@ -2,10 +2,10 @@ key1 = 'N8YGybjUTaarxp1VS3B72PuwfAojnLybkoJB9WLv'
 key2 = 'AcAQgeDMAvaG1BKWrpyVj1IicTRRbZRwjt14Ks1D'
 demo = 'DEMO_KEY'
 
-// A jour : 2012,2013,2014,2015
+// A jour : 2012,2013,2014,2015,2016,2017
 
 let setYear = {
-  year : 2015
+  year : 2018
 }
 
 const changeYear = () => {
