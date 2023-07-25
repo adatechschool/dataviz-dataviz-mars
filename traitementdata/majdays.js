@@ -2,10 +2,10 @@ key1 = 'N8YGybjUTaarxp1VS3B72PuwfAojnLybkoJB9WLv'
 key2 = 'AcAQgeDMAvaG1BKWrpyVj1IicTRRbZRwjt14Ks1D'
 demo = 'DEMO_KEY'
 let setYear = {
-  year : 2016
+  year : 2021
 }
 
-const changeSols = () => {
+const changeYear = () => {
   switch (setYear.year) {
     case 2012 :
       setYear.startSol = 0
@@ -58,7 +58,7 @@ const changeSols = () => {
   }
 }
 
-changeSols()
+changeYear()
 
 
 let year = [[],[],[],[],[],[],[],[],[],[],[],[]]
