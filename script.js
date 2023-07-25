@@ -16,3 +16,34 @@ axios
     console.log(error); // Affichera d'éventuelles erreurs, notamment en cas de problème de connexion Internet.
   });
 }
+
+const tlItems = document.querySelectorAll('tl-item');
+
+tlItems.forEach((item, index) => {
+  item.addEventListener('mouseenter', () => {
+    for (let i = 0; i < tlItems.length; i++) {
+      if (i <= index) {
+        tlItems[i].style.width = '30%';
+      } else {
+        tlItems[i].style.width = '15%';
+      }
+    }
+  });
+
+  item.addEventListener('mouseleave', () => {
+    tlItems.forEach((item) => {
+      item.style.width = '25%';
+    });
+  });
+});
+
+
+function afficherTimeline(timelineId) {
+  if (timelineId === 'timeline') {
+      document.getElementById('timeline1').style.display = 'block';
+      document.getElementById('timeline2').style.display = 'none';
+  } else if (timelineId === 'timeline2') {
+      document.getElementById('timeline1').style.display = 'none';
+      document.getElementById('timeline2').style.display = 'block';
+  }
+}
