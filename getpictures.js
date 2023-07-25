@@ -18,19 +18,62 @@ const year2014 = {
     endSol: 854
 }
 
+const year2015 = {
+    startSol: 855,
+    endSol: 1209
+}
+
+const year2016 = {
+    startSol: 1210,
+    endSol: 1565
+}
+
+const year2017 = {
+    startSol: 1566,
+    endSol: 1921
+}
+
+const year2018 = {
+    startSol: 1922,
+    endSol: 2276
+}
+
+const year2019 = {
+    startSol: 2277,
+    endSol: 2631
+}
+
+const year2020 = {
+    startSol: 2632,
+    endSol: 2987
+}
+
+const year2021 = {
+    startSol: 2988,
+    endSol: 3343
+}
+
+const year2022 = {
+    startSol: 3344,
+    endSol: 3698
+}
+
+const year2023 = {
+    startSol: 3699,
+    endSol: 3897
+}
+
 const getRandomSol = (year) => {
     let yearRange = year.endSol - year.startSol;
     let randomSol = (Math.floor(Math.random() * yearRange) + year.startSol)
     return randomSol
 }
 
-getRandomSol(year2014)
-
 const axios = require("axios");
 
 const isCameraOkay = (response) => {
   let indexPhoto = Math.floor(Math.random() * response.data.photos.length);
-  
+
   if (response.data.photos[indexPhoto].camera.name == "MARDI") {
     isCameraOkay(response)
   } 
@@ -38,82 +81,22 @@ const isCameraOkay = (response) => {
     console.log(response.data.photos[indexPhoto].camera.name)
     console.log(response.data.photos[indexPhoto].img_src)
   }
-
 }
 
 const getRandomPicture = (year) => {
     let randomSol2 = getRandomSol(year)
    
     axios
-
     .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key1}`)
     .then((response) => {
         console.log("Nombre de photos : " + response.data.photos.length)
         console.log("sol : " + randomSol2)
         isCameraOkay(response)
-
     })
     .catch(error => {
         console.log('error')
     });
-
 }
 
 getRandomPicture(year2014)
 
-const changeYear = () => {
-    switch (setYear.year) {
-      case "test" :
-        setYear.startSol = 1
-        setYear.endSol = 5
-        break
-      case 2012 :
-        setYear.startSol = 0
-        setYear.endSol = 144
-        break
-      case 2013 :
-        setYear.startSol = 145
-        setYear.endSol = 499
-        break
-      case 2014 : 
-        setYear.startSol = 500
-        setYear.endSol = 854
-        break
-      case 2015 : 
-        setYear.startSol = 855
-        setYear.endSol = 1209
-        break
-      case 2016 : 
-        setYear.startSol = 1210
-        setYear.endSol = 1565
-        break
-      case 2017 : 
-        setYear.startSol = 1566
-        setYear.endSol = 1921
-        break
-      case 2018 : 
-        setYear.startSol = 1922
-        setYear.endSol = 2276
-        break
-      case 2019 :
-        setYear.startSol = 2277
-        setYear.endSol = 2631
-        break
-      case 2020 : 
-        setYear.startSol = 2632
-        setYear.endSol = 2987
-        break
-      case 2021 : 
-        setYear.startSol = 2988
-        setYear.endSol = 3343
-        break
-      case 2022 :
-        setYear.startSol = 3344
-        setYear.endSol = 3698
-        break
-      case 2023 :
-        setYear.startSol = 3699
-        setYear.endSol = 3897
-  
-    }
-  }
