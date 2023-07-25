@@ -2,6 +2,7 @@ key1 = 'N8YGybjUTaarxp1VS3B72PuwfAojnLybkoJB9WLv'
 key2 = 'AcAQgeDMAvaG1BKWrpyVj1IicTRRbZRwjt14Ks1D'
 demo = 'DEMO_KEY'
 
+console.log("r")
 
 const year2012 = {
     startSol: 0,
@@ -69,7 +70,6 @@ const getRandomSol = (year) => {
     return randomSol
 }
 
-const axios = require("axios");
 
 const isCameraOkay = (response) => {
   let indexPhoto = Math.floor(Math.random() * response.data.photos.length);
@@ -80,14 +80,14 @@ const isCameraOkay = (response) => {
   else {
     console.log(response.data.photos[indexPhoto].camera.name)
     console.log(response.data.photos[indexPhoto].img_src)
+    document.getElementById("year1").style.backgroundImage = `url(${response.data.photos[indexPhoto].img_src})`
   }
 }
 
 const getRandomPicture = (year) => {
     let randomSol2 = getRandomSol(year)
-   
     axios
-    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key1}`)
+    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key2}`,{withCredentials: false})
     .then((response) => {
         console.log("Nombre de photos : " + response.data.photos.length)
         console.log("sol : " + randomSol2)
