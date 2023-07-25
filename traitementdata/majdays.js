@@ -1,6 +1,65 @@
 key1 = 'N8YGybjUTaarxp1VS3B72PuwfAojnLybkoJB9WLv'
 key2 = 'AcAQgeDMAvaG1BKWrpyVj1IicTRRbZRwjt14Ks1D'
 demo = 'DEMO_KEY'
+let setYear = {
+  year : 2016
+}
+
+const changeSols = () => {
+  switch (setYear.year) {
+    case 2012 :
+      setYear.startSol = 0
+      setYear.endSol = 144
+      break
+    case 2013 :
+      setYear.startSol = 145
+      setYear.endSol = 499
+      break
+    case 2014 : 
+      setYear.startSol = 500
+      setYear.endSol = 854
+      break
+    case 2015 : 
+      setYear.startSol = 855
+      setYear.endSol = 1209
+      break
+    case 2016 : 
+      setYear.startSol = 1210
+      setYear.endSol = 1565
+      break
+    case 2017 : 
+      setYear.startSol = 1566
+      setYear.endSol = 1921
+      break
+    case 2018 : 
+      setYear.startSol = 1922
+      setYear.endSol = 2276
+      break
+    case 2019 :
+      setYear.startSol = 2277
+      setYear.endSol = 2631
+      break
+    case 2020 : 
+      setYear.startSol = 2632
+      setYear.endSol = 2987
+      break
+    case 2021 : 
+      setYear.startSol = 2988
+      setYear.endSol = 3343
+      break
+    case 2022 :
+      setYear.startSol = 3344
+      setYear.endSol = 3698
+      break
+    case 2023 :
+      setYear.startSol = 3699
+      setYear.endSol = 3897
+
+  }
+}
+
+changeSols()
+
 
 let year = [[],[],[],[],[],[],[],[],[],[],[],[]]
 let allPromises = []
@@ -9,9 +68,9 @@ const fs = require('fs')
 const axiosRetry = require('axios-retry')
 
 
-const requestSolDays = (iterations) => {
+const requestSolDays = () => {
 
-for(let i = 855 ; i < iterations ; i++){
+for(let i = setYear.startSol ; i < setYear.endSol ; i++){
 
   axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay });
   allPromises[i] = new Promise((resolve) => {
@@ -61,7 +120,7 @@ for(let i = 855 ; i < iterations ; i++){
 
 }
 
-requestSolDays(1209)
+requestSolDays()
 
 
 
@@ -78,7 +137,7 @@ Promise.all(allPromises).then(() => {
   data = JSON.stringify(year)
   console.log(data)
   
-  fs.writeFile('traitementdata/daysSol2015.json', data, (err) => {
+  fs.writeFile(`traitementdata/daysSol${setYear.year}.json`, data, (err) => {
       if (err) throw err;
   })
 

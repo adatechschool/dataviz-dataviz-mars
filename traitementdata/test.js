@@ -1,9 +1,9 @@
-const fs = require ('fs')
+// const fs = require ('fs')
 
-fetch("daysSol.json")
-.then(response => {
-    response.json()
-})
+// fetch("daysSol.json")
+// .then(response => {
+//     response.json()
+// })
 
 
 
