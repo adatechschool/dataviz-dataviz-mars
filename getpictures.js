@@ -74,7 +74,7 @@ const getRandomSol = (year) => {
 const isCameraOkay = (response) => {
   let indexPhoto = Math.floor(Math.random() * response.data.photos.length);
 
-  if (response.data.photos[indexPhoto].camera.name == "MARDI") {
+  if (response.data.photos[indexPhoto].camera.name == "MARDI" || response.data.photos[indexPhoto].camera.name == "MAST") {
     isCameraOkay(response)
   } 
   else {
