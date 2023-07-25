@@ -1,12 +1,19 @@
 key1 = 'N8YGybjUTaarxp1VS3B72PuwfAojnLybkoJB9WLv'
 key2 = 'AcAQgeDMAvaG1BKWrpyVj1IicTRRbZRwjt14Ks1D'
 demo = 'DEMO_KEY'
+
+// A jour : 2012,2013,2014,2015
+
 let setYear = {
-  year : 2021
+  year : 2015
 }
 
 const changeYear = () => {
   switch (setYear.year) {
+    case "test" :
+      setYear.startSol = 1
+      setYear.endSol = 5
+      break
     case 2012 :
       setYear.startSol = 0
       setYear.endSol = 144
@@ -60,8 +67,27 @@ const changeYear = () => {
 
 changeYear()
 
+class Month {
+  constructor(startSol,endSol,totalPhotos,days) {
+    // this.startSol = setYear.startSol
+    // this.endSol = setYear.endSol
+    this.totalPhotos = 0
+    this.days = []
+  }
+}
 
-let year = [[],[],[],[],[],[],[],[],[],[],[],[]]
+class Year {
+  constructor(months,year,totalPhotos) {
+    this.year = setYear.year
+    this.startSol = setYear.startSol
+    this.endSol = setYear.endSol
+    this.totalPhotos = 0
+    this.months = months
+  }
+}
+
+let monthArray = [new Month(),new Month(),new Month(),new Month(),new Month(),new Month(),new Month(),new Month(),new Month(),new Month(),new Month(),new Month()]
+let year = new Year(monthArray)
 let allPromises = []
 const axios = require("axios");
 const fs = require('fs')
@@ -90,7 +116,7 @@ for(let i = setYear.startSol ; i < setYear.endSol ; i++){
           taille : response.data.photos.length
         }
 
-        year[date.getMonth()][date.getDate()]=jasonDay
+        year.months[date.getMonth()].days[date.getDate()]=jasonDay
         console.log(jasonDay)
       }
     
@@ -106,7 +132,7 @@ for(let i = setYear.startSol ; i < setYear.endSol ; i++){
           taille : 0
         }
 
-        year[date.getMonth()][date.getDate()]=jasonDay
+        year.months[date.getMonth()].days[date.getDate()]=jasonDay
         console.log(jasonDay)
       }
     })
@@ -120,28 +146,46 @@ for(let i = setYear.startSol ; i < setYear.endSol ; i++){
 
 }
 
+const countPhotosInMonth = () => {
+  for (let i=0;i<12;i++){
+    let count = 0
+    for (day in year.months[i].days){
+      count += year.months[i].days[day].taille
+    }
+    year.months[i].totalPhotos = count
+  }
+}
+
+const countPhotosInYear = () => {
+  let count = 0
+  for (month in year.months) {
+      count += year.months[month].totalPhotos
+  }
+  year.totalPhotos = count
+}
+
 requestSolDays()
 
 
 
+const writeData = () => {
 
-Promise.all(allPromises).then(() => { 
-// let content;
-// fs.readFile('daysSol.json', function read(err, data) {
-//     if (err) {
-//         throw err;
-//     }
-//     content = data;
-// });
+  Promise.all(allPromises).then(() => { 
 
-  data = JSON.stringify(year)
-  console.log(data)
-  
-  fs.writeFile(`traitementdata/daysSol${setYear.year}.json`, data, (err) => {
-      if (err) throw err;
+    countPhotosInMonth()
+    countPhotosInYear()
+
+    data = JSON.stringify(year)
+    
+    fs.writeFile(`traitementdata/data_curiosity/daysSol${setYear.year}.json`, data, (err) => {
+        if (err) throw err;
+    })
+
   })
 
-})
+}
+
+writeData()
 
 
 // Commencer par une lecture pour ne modifier que ce qui est nécessaire et compléter au fur et à mesure
