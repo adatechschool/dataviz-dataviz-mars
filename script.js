@@ -1,34 +1,21 @@
 let timeline = 2023
 
-console.log("a")
-// console.log("https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2023-07-${i}&api_key=DEMO_KEY")
-
-// for (let i=0;i<=31;i++){
-
-//     let adress = 'https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?earth_date=2023-07-${i}&api_key=DEMO_KEY'
-
-
-// const axios = require("axios");
-// axios
-//   .get(adress)
-//   .then((response) => {
-//   console.log(response.data.photos.length)
-//   })
-//   .catch(error => {
-//     console.log(error); // Affichera d'éventuelles erreurs, notamment en cas de problème de connexion Internet.
-//   });
-// }
-
 const tlItems = document.querySelectorAll('.tl-item');
 
-tlItems.forEach((item, index) => {
-  console.log("COUCOU")
-  item.addEventListener('mouseenter', () => {
+// tlItems.addEventListener('mouseenter', () => {
+  // })
+  
+  tlItems.forEach((item, index) => {
+    item.addEventListener('mouseenter', () => {
+      let bg = document.querySelector('.tl-bg')
+      console.log(bg)
+      // setInterval(changeRandomelyPicture, randomIntervall, bg)
+      
     for (let i = 0; i < tlItems.length; i++) {
       if (i == index) {
-        tlItems[i].style.width = '1000%';
+        tlItems[i].style.width = '2000%';
       } else {
-        tlItems[i].style.width = '10%';
+        tlItems[i].style.width = '6.5%';
       }
     }
   });
@@ -50,3 +37,192 @@ function afficherTimeline(timelineId) {
       document.getElementById('timeline2').style.display = 'block';
   }
 }
+
+
+
+
+
+//// getpictures
+
+key1 = 'N8YGybjUTaarxp1VS3B72PuwfAojnLybkoJB9WLv'
+key2 = 'AcAQgeDMAvaG1BKWrpyVj1IicTRRbZRwjt14Ks1D'
+demo = 'DEMO_KEY'
+
+
+tabYears = []
+const year2012 = {
+    name: "2012",
+    startSol: 0,
+    endSol: 144
+}
+tabYears.push(year2012)
+const year2013 = {
+    name: "2013",
+    startSol: 145,
+    endSol: 499
+}
+tabYears.push(year2013)
+const year2014 = {
+    name: "2014",
+    startSol: 500,
+    endSol: 854
+}
+tabYears.push(year2014)
+const year2015 = {
+    name: "2015",
+    startSol: 855,
+    endSol: 1209
+}
+tabYears.push(year2015)
+
+const year2016 = {
+    name: "2016",
+    startSol: 1210,
+    endSol: 1565
+}
+tabYears.push(year2016)
+
+const year2017 = {
+    name: "2017",
+    startSol: 1566,
+    endSol: 1921
+}
+tabYears.push(year2017)
+
+const year2018 = {
+    name: "2018",
+    startSol: 1922,
+    endSol: 2276
+}
+tabYears.push(year2018)
+
+const year2019 = {
+    name: "2019",
+    startSol: 2277,
+    endSol: 2631
+}
+tabYears.push(year2019)
+
+const year2020 = {
+    name: "2020",
+    startSol: 2632,
+    endSol: 2987
+}
+tabYears.push(year2020)
+
+const year2021 = {
+    name: "2021",
+    startSol: 2988,
+    endSol: 3343
+}
+tabYears.push(year2021)
+
+const year2022 = {
+    name: "2022",
+    startSol: 3344,
+    endSol: 3698
+}
+tabYears.push(year2022)
+
+const year2023 = {
+    name : "2023",
+    startSol: 3699,
+    endSol: 3897
+}
+tabYears.push(year2023)
+
+
+const getRandomSol = (year) => {
+    let yearRange = year.endSol - year.startSol;
+    let randomSol = (Math.floor(Math.random() * yearRange) + year.startSol)
+    return randomSol
+}
+
+
+const isCameraOkay = (response,yearId,year) => {
+  let indexPhoto = Math.floor(Math.random() * response.data.photos.length);
+  
+  if (response.data.photos[indexPhoto].camera.name == "MARDI" || response.data.photos[indexPhoto].camera.name == "MAST") {
+    console.log(response.data.photos[0].sol,"retry")
+      getRandomPicture(year,yearId)
+    } 
+    else {
+        console.log(response.data.photos[indexPhoto].camera.name)
+        console.log(response.data.photos[indexPhoto].img_src)
+        console.log(response.data.photos[indexPhoto].earth_date)
+        preloadImage(response.data.photos[indexPhoto].img_src)
+        .then((url)=> {
+            console.log(url, "chargé")
+            document.getElementById(yearId).style.backgroundImage = `url(${url})`
+        })
+  }
+}
+
+const getRandomPicture = (year,yearId) => {
+    console.log(year)
+    let randomSol2 = getRandomSol(year)
+    console.log("randomSol2",randomSol2)
+    // axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay });
+    axios
+    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key2}`,{withCredentials: false})
+    .then((response) => {
+        if (response.data.photos.length == 0){
+            console.log("aaaaa")
+            getRandomPicture(year,yearId)
+
+        }
+        console.log("Nombre de photos : " + response.data.photos.length)
+        console.log("sol : " + randomSol2)
+        isCameraOkay(response,yearId,year)
+    })
+    .catch(error => {
+        console.log(error)
+    });
+}
+
+const preloadImage = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(url);
+      img.onerror = reject;
+      img.src = url;
+    });
+  };
+
+//   
+
+const tlBg = document.body.querySelectorAll(".tl-bg")
+console.log(tlBg.length)
+
+
+tlBg.forEach ((item) => {
+
+    for (year in tabYears){
+        if (item.id == tabYears[year].name){
+          console.log(tabYears[year].name, item.id)
+            getRandomPicture(tabYears[year],item.id)
+        }
+    }
+        
+        
+})
+
+
+let randomIntervall = 5000
+
+const changeRandomelyPicture = (bg) => {
+    console.log("lancé",bg)
+    let itemToChange = bg
+    for (year in tabYears){
+        if (itemToChange.id == tabYears[year].name){
+
+            getRandomPicture(tabYears[year],itemToChange.id)
+        }
+    }
+}
+
+
+// setInterval(changeRandomelyPicture, randomIntervall)
+
+
+
