@@ -26,7 +26,6 @@ fetch(`traitementdata/data_curiosity/${item.id}.json`)
 
 const tlItems = document.querySelectorAll('.tl-item');
 
-
   tlItems.forEach((item, index) => {
     const tlbgg = document.querySelectorAll('.tl-bg')
     
@@ -37,7 +36,12 @@ const tlItems = document.querySelectorAll('.tl-item');
         float.innerHTML = `<div class='box'><img class='img-float' src = ${urlArray[tlbgg[index].id].url}></div>`
         informations.innerHTML = `<div class = 'info'>Earth day : ${urlArray[tlbgg[index].id].earthDay} <br> Sol : ${urlArray[tlbgg[index].id].sol} <br> Camera name : ${urlArray[tlbgg[index].id].camera} <br> Id photo : ${urlArray[tlbgg[index].id].id}</div>`
       }
-      setTimeout(changeRandomelyPicture, 1000, bg)
+    // document.addEventListener("keypress",(event) => {
+    //   if (event.key === "Enter"){
+    //     changeRandomelyPicture(bg)
+    //   }
+    // })
+      setInterval(changeRandomelyPicture, 2500, bg)
       
     for (let i = 0; i < tlItems.length; i++) {
       if (i == index) {
@@ -170,7 +174,7 @@ const getRandomSol = (year) => {
     return randomSol
 }
 
-let excludedCameras = ["MARDI","MAHLI","MAST"]
+let excludedCameras = ["MARDI","MAHLI"]
 
 const isCameraOkay = (response,yearId,year) => {
   let indexPhoto = Math.floor(Math.random() * response.data.photos.length);
@@ -203,7 +207,7 @@ const getRandomPicture = (year,yearId) => {
     let randomSol2 = getRandomSol(year)
     // axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay });
     axios
-    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key2}`,{withCredentials: false})
+    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key1}`,{withCredentials: false})
     .then((response) => {
         if (response.data.photos.length == 0){
             getRandomPicture(year,yearId)
@@ -259,7 +263,7 @@ const changeRandomelyPicture = () => {
   }
 }
 
-setInterval(changeRandomelyPicture, 3000)
+// setInterval(changeRandomelyPicture, 3000)
 
 const changeRandomelyPicture2 = (bg) => {
     let itemToChange = bg
