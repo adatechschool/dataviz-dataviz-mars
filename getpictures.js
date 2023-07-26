@@ -103,7 +103,11 @@ const isCameraOkay = (response,yearId) => {
         console.log(response.data.photos[indexPhoto].camera.name)
         console.log(response.data.photos[indexPhoto].img_src)
         console.log(response.data.photos[indexPhoto].earth_date)
-        document.getElementById(yearId).style.backgroundImage = `url(${response.data.photos[indexPhoto].img_src})`
+        preloadImage(response.data.photos[indexPhoto].img_src)
+        .then((url)=> {
+            console.log(url, "chargé")
+            document.getElementById(yearId).style.backgroundImage = `url(${url})`
+        })
   }
 }
 
@@ -127,6 +131,17 @@ const getRandomPicture = (year,yearId) => {
         console.log(error)
     });
 }
+
+const preloadImage = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(url);
+      img.onerror = reject;
+      img.src = url;
+    });
+  };
+
+//   
 
 const tlBg = document.body.querySelectorAll(".tl-bg")
 console.log(tlBg.length)
@@ -156,7 +171,7 @@ const changeRandomelyPicture = () => {
     }
 }
 
-setInterval(changeRandomelyPicture, randomIntervall)
+// setInterval(changeRandomelyPicture, randomIntervall)
 
 
 
