@@ -1,7 +1,5 @@
 let timeline = 2023
 
-// const fs = require ('fs')
-console.log("coucou")
 
 const daySols = document.querySelectorAll('.f3')
 
@@ -15,9 +13,7 @@ fetch(`traitementdata/data_curiosity/${item.id}.json`)
   .then(data => {
     console.log(data)
     content = data
-    console.log(content.totalPhotos)
     item.innerHTML = "Nombre de photos: " + content.totalPhotos
-
   })
 
   .catch(err => {
@@ -225,7 +221,7 @@ tlBg.forEach ((item) => {
 
 let randomIntervall = 5000
 
-const changeRandomelyPicture = (bg) => {
+const changeRandomelyPicture2 = (bg) => {
     let itemToChange = bg
     for (year in tabYears){
         if (itemToChange.id == tabYears[year].name){
