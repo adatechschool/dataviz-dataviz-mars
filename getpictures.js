@@ -138,4 +138,3 @@ tlBg.forEach ((item) => {
     
 })
 
-
