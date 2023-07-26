@@ -34,7 +34,8 @@ const tlItems = document.querySelectorAll('.tl-item');
       bg = index
       yearOfBg = tlbgg[bg].id
       if (urlArray[tlbgg[index].id].url != undefined){
-        float.innerHTML = `<div id = "floating-box" class='box'><img class='img-float' src = ${urlArray[tlbgg[index].id].url}></div>`
+        float.innerHTML = `<div class='box'><img class='img-float' src = ${urlArray[tlbgg[index].id].url}></div>`
+        informations.innerHTML = `<div class = 'info'>Earth day : ${urlArray[tlbgg[index].id].earthDay} <br> Sol : ${urlArray[tlbgg[index].id].sol} <br> Camera name : ${urlArray[tlbgg[index].id].camera} <br> Id photo : ${urlArray[tlbgg[index].id].id}</div>`
       }
       setTimeout(changeRandomelyPicture, 1000, bg)
       
@@ -51,6 +52,7 @@ const tlItems = document.querySelectorAll('.tl-item');
 
     bg = undefined
     float.innerHTML = ""
+    informations.innerHTML = ""
     tlItems.forEach((item) => {
       item.style.width = '16.6%';
     });
@@ -168,11 +170,12 @@ const getRandomSol = (year) => {
     return randomSol
 }
 
+let excludedCameras = ["MARDI","MAHLI","MAST"]
 
 const isCameraOkay = (response,yearId,year) => {
   let indexPhoto = Math.floor(Math.random() * response.data.photos.length);
-  
-  if (response.data.photos[indexPhoto].camera.name == "MARDI" || response.data.photos[indexPhoto].camera.name == "MAST") {
+  if (excludedCameras.includes(response.data.photos[indexPhoto].camera.name)) {
+    console.log(response.data.photos[indexPhoto].camera.name)
       getRandomPicture(year,yearId)
     } 
     else {
@@ -187,6 +190,9 @@ const isCameraOkay = (response,yearId,year) => {
             document.getElementById(yearId).style.backgroundImage = `url(${url})`
           if (float.innerHTML != "" && year.name==yearOfBg){
             float.innerHTML = `<div class='box'><img class='img-float' src = ${url}></div>`
+            informations.innerHTML = `<div class = 'info'>Earth date : ${urlArray[yearId].earthDay} <br> 
+            Sol : ${urlArray[yearId].sol} <br> Camera name : ${urlArray[yearId].camera} <br> 
+            Id photo : ${urlArray[yearId].id}</div>`
           }
 
         })
