@@ -129,7 +129,7 @@ const getRandomPicture = (year,yearId) => {
 }
 
 const tlBg = document.body.querySelectorAll(".tl-bg")
-console.log(tlBg)
+console.log(tlBg.length)
 
 
 tlBg.forEach ((item) => {
@@ -139,7 +139,24 @@ tlBg.forEach ((item) => {
             getRandomPicture(tabYears[year],item.id)
         }
     }
-    
-    
+        
+        
 })
+
+
+let randomIntervall = 5000
+
+const changeRandomelyPicture = () => {
+    console.log("lancé")
+    let itemToChange = Math.floor(Math.random() * tlBg.length)
+    for (year in tabYears){
+        if (tlBg[itemToChange].id == tabYears[year].name){
+            getRandomPicture(tabYears[year],tlBg[itemToChange].id)
+        }
+    }
+}
+
+setInterval(changeRandomelyPicture, randomIntervall)
+
+
 
