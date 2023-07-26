@@ -41,8 +41,8 @@ const tlItems = document.querySelectorAll('.tl-item');
     //     changeRandomelyPicture(bg)
     //   }
     // })
-      setInterval(changeRandomelyPicture, 2500, bg)
-      
+    
+    
     for (let i = 0; i < tlItems.length; i++) {
       if (i == index) {
         tlItems[i].style.width = '2000%';
@@ -250,9 +250,7 @@ tlBg.forEach ((item) => {
 
 
 const changeRandomelyPicture = () => {
-  console.log("lancé")
   if (bg == undefined) {
-    console.log("cc")
     return
   }
   let itemToChange = bg
@@ -263,7 +261,7 @@ const changeRandomelyPicture = () => {
   }
 }
 
-// setInterval(changeRandomelyPicture, 3000)
+setInterval(changeRandomelyPicture, 2000)
 
 const changeRandomelyPicture2 = (bg) => {
     let itemToChange = bg
