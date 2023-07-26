@@ -1,6 +1,6 @@
 let timeline = 2023
 
-
+let bg = undefined
 const daySols = document.querySelectorAll('.f3')
 
 daySols.forEach(item => {
@@ -30,7 +30,7 @@ const tlItems = document.querySelectorAll('.tl-item');
   
   tlItems.forEach((item, index) => {
     item.addEventListener('mouseenter', () => {
-      // let bg = document.querySelector('.tl-bg')
+      bg = index
       // console.log(bg)
       // setInterval(changeRandomelyPicture, randomIntervall, bg)
       
@@ -44,6 +44,7 @@ const tlItems = document.querySelectorAll('.tl-item');
   });
 
   item.addEventListener('mouseleave', () => {
+    bg = undefined
     tlItems.forEach((item) => {
       item.style.width = '16.6%';
     });
@@ -223,7 +224,11 @@ tlBg.forEach ((item) => {
 
 const changeRandomelyPicture = () => {
   console.log("lancé")
-  let itemToChange = Math.floor(Math.random() * tlBg.length)
+  if (bg == undefined) {
+    console.log("cc")
+    return
+  }
+  let itemToChange = bg
   for (year in tabYears){
       if (tlBg[itemToChange].id == tabYears[year].name){
           getRandomPicture(tabYears[year],tlBg[itemToChange].id)
@@ -231,7 +236,7 @@ const changeRandomelyPicture = () => {
   }
 }
 
-setInterval(changeRandomelyPicture, 1000)
+setInterval(changeRandomelyPicture, 3000)
 
 const changeRandomelyPicture2 = (bg) => {
     let itemToChange = bg
