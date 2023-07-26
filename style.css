@@ -131,3 +131,27 @@ body {
   transition: filter 0.5s ease;
   filter: grayscale(100%);
 }
+
+.box {
+  width: 600px;
+  height: 400px;
+  background-color: black;
+  border: 1px solid #000;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-float {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+embed {
+  position: relative;
+}

@@ -1,4 +1,5 @@
 let timeline = 2023
+urlArray = []
 
 let bg = undefined
 const daySols = document.querySelectorAll('.f3')
@@ -11,7 +12,6 @@ fetch(`traitementdata/data_curiosity/${item.id}.json`)
 
 
   .then(data => {
-    console.log(data)
     content = data
     item.innerHTML = "Nombre de photos: " + content.totalPhotos
   })
@@ -27,13 +27,14 @@ const tlItems = document.querySelectorAll('.tl-item');
 
 // tlItems.addEventListener('mouseenter', () => {
   // })
-  
+
   tlItems.forEach((item, index) => {
+    const tlbgg = document.querySelectorAll('.tl-bg')
     
     item.addEventListener('mouseenter', () => {
       bg = index
-      // console.log(bg)
-      // setInterval(changeRandomelyPicture, randomIntervall, bg)
+      float.innerHTML = `<div class='box'><img class='img-float' src = ${urlArray[tlbgg[index].id]}></div>`
+      setTimeout(changeRandomelyPicture, 1000, bg)
       
     for (let i = 0; i < tlItems.length; i++) {
       if (i == index) {
@@ -46,6 +47,7 @@ const tlItems = document.querySelectorAll('.tl-item');
 
   item.addEventListener('mouseleave', () => {
     bg = undefined
+    float.innerHTML = ""
     tlItems.forEach((item) => {
       item.style.width = '16.6%';
     });
@@ -173,7 +175,12 @@ const isCameraOkay = (response,yearId,year) => {
     else {
         preloadImage(response.data.photos[indexPhoto].img_src)
         .then((url)=> {
+          urlArray[yearId]=url
             document.getElementById(yearId).style.backgroundImage = `url(${url})`
+          if (float.innerHTML != ""){
+            float.innerHTML = `<div class='box'><img class='img-float' src = ${url}></div>`
+          }
+
         })
   }
 }
