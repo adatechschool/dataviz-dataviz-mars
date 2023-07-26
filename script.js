@@ -1,5 +1,32 @@
 let timeline = 2023
 
+// const fs = require ('fs')
+console.log("coucou")
+
+const daySols = document.querySelectorAll('.f3')
+
+daySols.forEach(item => {
+
+fetch(`traitementdata/data_curiosity/${item.id}.json`)
+
+  .then(response => response.json())
+
+
+  .then(data => {
+    console.log(data)
+    content = data
+    console.log(content.totalPhotos)
+    item.innerHTML = "Nombre de photos: " + content.totalPhotos
+
+  })
+
+  .catch(err => {
+    throw err
+  })
+
+});
+
+
 const tlItems = document.querySelectorAll('.tl-item');
 
 // tlItems.addEventListener('mouseenter', () => {
@@ -7,8 +34,8 @@ const tlItems = document.querySelectorAll('.tl-item');
   
   tlItems.forEach((item, index) => {
     item.addEventListener('mouseenter', () => {
-      let bg = document.querySelector('.tl-bg')
-      console.log(bg)
+      // let bg = document.querySelector('.tl-bg')
+      // console.log(bg)
       // setInterval(changeRandomelyPicture, randomIntervall, bg)
       
     for (let i = 0; i < tlItems.length; i++) {
@@ -143,36 +170,26 @@ const isCameraOkay = (response,yearId,year) => {
   let indexPhoto = Math.floor(Math.random() * response.data.photos.length);
   
   if (response.data.photos[indexPhoto].camera.name == "MARDI" || response.data.photos[indexPhoto].camera.name == "MAST") {
-    console.log(response.data.photos[0].sol,"retry")
       getRandomPicture(year,yearId)
     } 
     else {
-        console.log(response.data.photos[indexPhoto].camera.name)
-        console.log(response.data.photos[indexPhoto].img_src)
-        console.log(response.data.photos[indexPhoto].earth_date)
         preloadImage(response.data.photos[indexPhoto].img_src)
         .then((url)=> {
-            console.log(url, "chargé")
             document.getElementById(yearId).style.backgroundImage = `url(${url})`
         })
   }
 }
 
 const getRandomPicture = (year,yearId) => {
-    console.log(year)
     let randomSol2 = getRandomSol(year)
-    console.log("randomSol2",randomSol2)
     // axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay });
     axios
     .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key2}`,{withCredentials: false})
     .then((response) => {
         if (response.data.photos.length == 0){
-            console.log("aaaaa")
             getRandomPicture(year,yearId)
 
         }
-        console.log("Nombre de photos : " + response.data.photos.length)
-        console.log("sol : " + randomSol2)
         isCameraOkay(response,yearId,year)
     })
     .catch(error => {
@@ -192,14 +209,12 @@ const preloadImage = (url) => {
 //   
 
 const tlBg = document.body.querySelectorAll(".tl-bg")
-console.log(tlBg.length)
 
 
 tlBg.forEach ((item) => {
 
     for (year in tabYears){
         if (item.id == tabYears[year].name){
-          console.log(tabYears[year].name, item.id)
             getRandomPicture(tabYears[year],item.id)
         }
     }
@@ -211,7 +226,6 @@ tlBg.forEach ((item) => {
 let randomIntervall = 5000
 
 const changeRandomelyPicture = (bg) => {
-    console.log("lancé",bg)
     let itemToChange = bg
     for (year in tabYears){
         if (itemToChange.id == tabYears[year].name){
@@ -223,6 +237,8 @@ const changeRandomelyPicture = (bg) => {
 
 
 // setInterval(changeRandomelyPicture, randomIntervall)
+
+
 
 
 
