@@ -219,7 +219,19 @@ tlBg.forEach ((item) => {
 })
 
 
-let randomIntervall = 5000
+
+
+const changeRandomelyPicture = () => {
+  console.log("lancé")
+  let itemToChange = Math.floor(Math.random() * tlBg.length)
+  for (year in tabYears){
+      if (tlBg[itemToChange].id == tabYears[year].name){
+          getRandomPicture(tabYears[year],tlBg[itemToChange].id)
+      }
+  }
+}
+
+setInterval(changeRandomelyPicture, 1000)
 
 const changeRandomelyPicture2 = (bg) => {
     let itemToChange = bg
@@ -232,7 +244,6 @@ const changeRandomelyPicture2 = (bg) => {
 }
 
 
-// setInterval(changeRandomelyPicture, randomIntervall)
 
 
 
