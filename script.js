@@ -29,6 +29,7 @@ const tlItems = document.querySelectorAll('.tl-item');
   // })
   
   tlItems.forEach((item, index) => {
+    
     item.addEventListener('mouseenter', () => {
       bg = index
       // console.log(bg)
