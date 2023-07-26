@@ -33,7 +33,9 @@ const tlItems = document.querySelectorAll('.tl-item');
     item.addEventListener('mouseenter', () => {
       bg = index
       yearOfBg = tlbgg[bg].id
-      float.innerHTML = `<div class='box'><img class='img-float' src = ${urlArray[tlbgg[index].id]}></div>`
+      if (urlArray[tlbgg[index].id].url != undefined){
+        float.innerHTML = `<div id = "floating-box" class='box'><img class='img-float' src = ${urlArray[tlbgg[index].id].url}></div>`
+      }
       setTimeout(changeRandomelyPicture, 1000, bg)
       
     for (let i = 0; i < tlItems.length; i++) {
@@ -174,9 +176,14 @@ const isCameraOkay = (response,yearId,year) => {
       getRandomPicture(year,yearId)
     } 
     else {
+      urlArray[yearId] = new Object()
+      urlArray[yearId].id = response.data.photos[indexPhoto].id
+      urlArray[yearId].sol = response.data.photos[indexPhoto].sol
+      urlArray[yearId].earthDay = response.data.photos[indexPhoto].earth_date
+      urlArray[yearId].camera = response.data.photos[indexPhoto].camera.name
         preloadImage(response.data.photos[indexPhoto].img_src)
         .then((url)=> {
-          urlArray[yearId]=url
+          urlArray[yearId].url=url
             document.getElementById(yearId).style.backgroundImage = `url(${url})`
           if (float.innerHTML != "" && year.name==yearOfBg){
             float.innerHTML = `<div class='box'><img class='img-float' src = ${url}></div>`
@@ -196,6 +203,7 @@ const getRandomPicture = (year,yearId) => {
             getRandomPicture(year,yearId)
 
         }
+
         isCameraOkay(response,yearId,year)
     })
     .catch(error => {
