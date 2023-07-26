@@ -100,3 +100,14 @@ const getRandomPicture = (year) => {
 
 getRandomPicture(year2014)
 
+const getRandomPictureByMonth = (year) => {
+    let randomMonth = Math.floor(Math.random() * 12)
+    //console.log(randomMonth)
+
+    
+}
+
+
+
+
+
