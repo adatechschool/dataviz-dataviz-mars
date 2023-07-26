@@ -19,22 +19,23 @@ console.log("a")
 //   });
 // }
 
-const tlItems = document.querySelectorAll('tl-item');
+const tlItems = document.querySelectorAll('.tl-item');
 
 tlItems.forEach((item, index) => {
+  console.log("COUCOU")
   item.addEventListener('mouseenter', () => {
     for (let i = 0; i < tlItems.length; i++) {
-      if (i <= index) {
-        tlItems[i].style.width = '30%';
+      if (i == index) {
+        tlItems[i].style.width = '1000%';
       } else {
-        tlItems[i].style.width = '15%';
+        tlItems[i].style.width = '10%';
       }
     }
   });
 
   item.addEventListener('mouseleave', () => {
     tlItems.forEach((item) => {
-      item.style.width = '25%';
+      item.style.width = '16.6%';
     });
   });
 });
