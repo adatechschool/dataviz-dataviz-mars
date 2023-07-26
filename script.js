@@ -2,6 +2,7 @@ let timeline = 2023
 urlArray = []
 
 let bg = undefined
+let yearOfBg = undefined
 const daySols = document.querySelectorAll('.f3')
 
 daySols.forEach(item => {
@@ -25,14 +26,13 @@ fetch(`traitementdata/data_curiosity/${item.id}.json`)
 
 const tlItems = document.querySelectorAll('.tl-item');
 
-// tlItems.addEventListener('mouseenter', () => {
-  // })
 
   tlItems.forEach((item, index) => {
     const tlbgg = document.querySelectorAll('.tl-bg')
     
     item.addEventListener('mouseenter', () => {
       bg = index
+      yearOfBg = tlbgg[bg].id
       float.innerHTML = `<div class='box'><img class='img-float' src = ${urlArray[tlbgg[index].id]}></div>`
       setTimeout(changeRandomelyPicture, 1000, bg)
       
@@ -46,6 +46,7 @@ const tlItems = document.querySelectorAll('.tl-item');
   });
 
   item.addEventListener('mouseleave', () => {
+
     bg = undefined
     float.innerHTML = ""
     tlItems.forEach((item) => {
@@ -177,7 +178,7 @@ const isCameraOkay = (response,yearId,year) => {
         .then((url)=> {
           urlArray[yearId]=url
             document.getElementById(yearId).style.backgroundImage = `url(${url})`
-          if (float.innerHTML != ""){
+          if (float.innerHTML != "" && year.name==yearOfBg){
             float.innerHTML = `<div class='box'><img class='img-float' src = ${url}></div>`
           }
 
