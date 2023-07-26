@@ -114,6 +114,11 @@ const getRandomPicture = (year,yearId) => {
     axios
     .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key1}`,{withCredentials: false})
     .then((response) => {
+        if (response.data.photos.length == 0){
+            console.log("aaaaa")
+            getRandomPicture(year,yearId)
+
+        }
         console.log("Nombre de photos : " + response.data.photos.length)
         console.log("sol : " + randomSol2)
         isCameraOkay(response,yearId)
