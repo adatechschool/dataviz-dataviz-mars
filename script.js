@@ -152,7 +152,7 @@ const tlItems = document.querySelectorAll('.tl-item');
   <div class='tl-item'>
       <div id='decembre' class='tl-bg'></div>
       <div class='tl-year'>
-          <button class='invisible-button'><p class='f2 heading--sanSerif'></p></button>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>decembre</p></button>
       </div>
       <div class='tl-content'>
           <h1 class='f3 text--accent ttu'>exemple</h1>
@@ -182,7 +182,7 @@ const tlItems = document.querySelectorAll('.tl-item');
       if (i == index) {
         tlItems[i].style.width = '2000%';
       } else {
-        tlItems[i].style.width = '6.5%';
+        tlItems[i].style.width = '6.9%';
       }
     }
   });
@@ -342,7 +342,7 @@ const getRandomPicture = (year,yearId) => {
     let randomSol2 = getRandomSol(year)
     // axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay });
     axios
-    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key1}`,{withCredentials: false})
+    .get(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randomSol2}&api_key=${key2}`,{withCredentials: false})
     .then((response) => {
         if (response.data.photos.length == 0){
             getRandomPicture(year,yearId)
