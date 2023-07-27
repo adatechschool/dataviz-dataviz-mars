@@ -1,4 +1,3 @@
-let timeline = 2023
 urlArray = []
 
 let bg = undefined
@@ -28,6 +27,140 @@ const tlItems = document.querySelectorAll('.tl-item');
 
   tlItems.forEach((item, index) => {
     const tlbgg = document.querySelectorAll('.tl-bg')
+
+    item.addEventListener('click', () => {
+      timeline.innerHTML = `<div class='tl-item'>
+      <div id='janvier' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>janvier</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+
+  <div class='tl-item'>
+      <div id='fevrier' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>fevrier</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+  
+  <div class='tl-item'>
+      <div id='mars' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>mars</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+
+  <div class='tl-item'>
+      <div id='avril' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>avril</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+
+  <div class='tl-item'>
+      <div id='mai' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>mai</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+
+  <div class='tl-item'>
+      <div id='juin' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>juin</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+  <div class='tl-item'>
+      <div id='juillet' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>juillet</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+
+  <div class='tl-item'>
+      <div id='aout' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>aout</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+
+  <div class='tl-item'>
+      <div id='septembre' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>septembre</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+
+  <div class='tl-item'>
+      <div id='octobre' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>octobre</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+
+  <div class='tl-item'>
+      <div id='novembre' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'>novembre</p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>
+
+  <div class='tl-item'>
+      <div id='decembre' class='tl-bg'></div>
+      <div class='tl-year'>
+          <button class='invisible-button'><p class='f2 heading--sanSerif'></p></button>
+      </div>
+      <div class='tl-content'>
+          <h1 class='f3 text--accent ttu'>exemple</h1>
+          <p>exemple</p>
+      </div>
+  </div>`
+    })
+  
     
     item.addEventListener('mouseenter', () => {
       bg = index
@@ -36,11 +169,13 @@ const tlItems = document.querySelectorAll('.tl-item');
         float.innerHTML = `<div class='box'><img class='img-float' src = ${urlArray[tlbgg[index].id].url}></div>`
         informations.innerHTML = `<div class = 'info'>Earth day : ${urlArray[tlbgg[index].id].earthDay} <br> Sol : ${urlArray[tlbgg[index].id].sol} <br> Camera name : ${urlArray[tlbgg[index].id].camera} <br> Id photo : ${urlArray[tlbgg[index].id].id}</div>`
       }
+      
     // document.addEventListener("keypress",(event) => {
     //   if (event.key === "Enter"){
     //     changeRandomelyPicture(bg)
     //   }
     // })
+    
     
     
     for (let i = 0; i < tlItems.length; i++) {
@@ -174,7 +309,7 @@ const getRandomSol = (year) => {
     return randomSol
 }
 
-let excludedCameras = ["MARDI","MAHLI"]
+let excludedCameras = ["MARDI","MAHLI","MAST"]
 
 const isCameraOkay = (response,yearId,year) => {
   let indexPhoto = Math.floor(Math.random() * response.data.photos.length);
